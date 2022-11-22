@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+-
+X = np.arange(-5,5)
+Y = (X+3)**2
+plt.style.use("seaborn")
+plt.plot(X,Y)
+plt.xlabel("X")
+plt.ylabel("F(X)")
+plt.show()
+-
+x = 0
+lr = 0.1
+error = []
+steps=50
+plt.plot(X,Y)
+for i in range(steps):
+    grad = 2*(x+3)
+    x = x - lr*grad
+    e = (x+3)**2
+    error.append(e)
+    plt.scatter(x,e)
+    plt.xlabel("X")
+    plt.ylabel("F(X)")
+    print(x)
+-
+plt.plot(error)
+-

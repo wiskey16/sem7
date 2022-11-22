@@ -1,0 +1,72 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+-
+df=pd.read_csv('sales_data_sample.csv')
+-
+df.head()
+-
+df.info()
+-
+df.describe()
+-
+df.columns
+-
+df=df.drop(['ORDERNUMBER','ORDERDATE','STATUS','PRODUCTCODE','CUSTOMERNAME','PHONE','ADDRESSLINE1','ADDRESSLINE2','CITY','STATE','POSTALCODE','COUNTRY', 'TERRITORY', 'CONTACTLASTNAME', 'CONTACTFIRSTNAME'])
+-
+df
+-
+df.isnull().sum()
+-
+df.dtypes
+-
+df=pd.get_dummies(df,columns=['PRODUCTLINE','DEALSIZE'])
+-
+df
+-
+df.columns
+-
+#Plotting Elbow Plot to Determine Number of Clusters
+-
+df
+-
+df.dtypes
+-
+from sklearn.cluster import KMeans,k_means
+from sklearn.decomposition import PCA
+-
+inertias=[]
+K=[i for i in range(1,11)]
+for k in K:
+    kmm=KMeans(n_clusters=k)
+    kmm.fit(df)
+    inertias.append(kmm.inertia_)
+-
+plt.figure(figsize=(16,8))
+plt.plot(K,inertias,'bx-')
+plt.xlabel('K')
+plt.ylabel('Inertia')
+plt.title('Elbow Plot')
+-
+#Final
+-
+x_train=df.values
+-
+x_train.shape
+-
+kmc=KMeans(n_clusters=5,random_state=2)
+kmc.fit(x_train)
+-
+cluster=kmc.labels_
+-
+df['cluster']=cluster
+-
+df['cluster'].unique()
+-
+df.head(20)
+
+
+
+
